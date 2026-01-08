@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../../config/database.php');
+$koneksi = $conn; // Alias for consistency
 
 // Check if user is admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -13,7 +14,7 @@ if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
 
     // Get teacher data to delete photo if exists
-    $result = mysqli_query($conn, "SELECT FOTO FROM USERS WHERE ID = $id AND ROLE = 'guru'");
+    $result = mysqli_query($koneksi, "SELECT FOTO FROM USERS WHERE ID = $id AND ROLE = 'guru'");
     if (mysqli_num_rows($result) === 0) {
         $_SESSION['error'] = 'Data guru tidak ditemukan';
         header('Location: ../../pages/guru/index.php');
@@ -29,10 +30,10 @@ if (isset($_GET['id'])) {
 
     // Delete from database
     $query = "DELETE FROM USERS WHERE ID = $id AND ROLE = 'guru'";
-    if (mysqli_query($conn, $query)) {
+    if (mysqli_query($koneksi, $query)) {
         $_SESSION['success'] = 'Data guru berhasil dihapus';
     } else {
-        $_SESSION['error'] = 'Gagal menghapus data guru: ' . mysqli_error($conn);
+        $_SESSION['error'] = 'Gagal menghapus data guru: ' . mysqli_error($koneksi);
     }
 } else {
     $_SESSION['error'] = 'ID guru tidak valid';

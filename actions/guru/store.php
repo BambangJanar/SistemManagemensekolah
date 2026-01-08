@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../../config/database.php');
+$koneksi = $conn; // Alias for consistency
 
 // Check if user is admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -11,22 +12,22 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize input
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_DEFAULT) : '';
-    $nama_lengkap = mysqli_real_escape_string($conn, $_POST['nama_lengkap']);
-    $jenis_kelamin = mysqli_real_escape_string($conn, $_POST['jenis_kelamin']);
-    $nip = !empty($_POST['nip']) ? mysqli_real_escape_string($conn, $_POST['nip']) : null;
-    $tempat_lahir = !empty($_POST['tempat_lahir']) ? mysqli_real_escape_string($conn, $_POST['tempat_lahir']) : null;
+    $nama_lengkap = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
+    $jenis_kelamin = mysqli_real_escape_string($koneksi, $_POST['jenis_kelamin']);
+    $nip = !empty($_POST['nip']) ? mysqli_real_escape_string($koneksi, $_POST['nip']) : null;
+    $tempat_lahir = !empty($_POST['tempat_lahir']) ? mysqli_real_escape_string($koneksi, $_POST['tempat_lahir']) : null;
     $tanggal_lahir = !empty($_POST['tanggal_lahir']) ? $_POST['tanggal_lahir'] : null;
-    $alamat = !empty($_POST['alamat']) ? mysqli_real_escape_string($conn, $_POST['alamat']) : null;
-    $no_telepon = !empty($_POST['no_telepon']) ? mysqli_real_escape_string($conn, $_POST['no_telepon']) : null;
-    $email = !empty($_POST['email']) ? mysqli_real_escape_string($conn, $_POST['email']) : null;
-    $jabatan = !empty($_POST['jabatan']) ? mysqli_real_escape_string($conn, $_POST['jabatan']) : null;
-    $bidang_studi = !empty($_POST['bidang_studi']) ? mysqli_real_escape_string($conn, $_POST['bidang_studi']) : null;
+    $alamat = !empty($_POST['alamat']) ? mysqli_real_escape_string($koneksi, $_POST['alamat']) : null;
+    $no_telepon = !empty($_POST['no_telepon']) ? mysqli_real_escape_string($koneksi, $_POST['no_telepon']) : null;
+    $email = !empty($_POST['email']) ? mysqli_real_escape_string($koneksi, $_POST['email']) : null;
+    $jabatan = !empty($_POST['jabatan']) ? mysqli_real_escape_string($koneksi, $_POST['jabatan']) : null;
+    $bidang_studi = !empty($_POST['bidang_studi']) ? mysqli_real_escape_string($koneksi, $_POST['bidang_studi']) : null;
     $status = !empty($_POST['status']) ? mysqli_real_escape_string($conn, $_POST['status']) : 'aktif';
 
     // Check if username already exists
-    $check_username = mysqli_query($conn, "SELECT ID FROM USERS WHERE USERNAME = '$username'");
+    $check_username = mysqli_query($koneksi, "SELECT ID FROM USERS WHERE USERNAME = '$username'");
     if (mysqli_num_rows($check_username) > 0) {
         $_SESSION['error'] = 'Username sudah digunakan';
         header('Location: ../../pages/guru/tambah.php');
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if NIP already exists if provided
     if ($nip) {
-        $check_nip = mysqli_query($conn, "SELECT ID FROM USERS WHERE NIP = '$nip'");
+        $check_nip = mysqli_query($koneksi, "SELECT ID FROM USERS WHERE NIP = '$nip'");
         if (mysqli_num_rows($check_nip) > 0) {
             $_SESSION['error'] = 'NIP sudah digunakan';
             header('Location: ../../pages/guru/tambah.php');
@@ -87,11 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         '$status'
     )";
 
-    if (mysqli_query($conn, $query)) {
+    if (mysqli_query($koneksi, $query)) {
         $_SESSION['success'] = 'Data guru berhasil ditambahkan';
         header('Location: ../../pages/guru/index.php');
     } else {
-        $_SESSION['error'] = 'Gagal menambahkan data guru: ' . mysqli_error($conn);
+        $_SESSION['error'] = 'Gagal menambahkan data guru: ' . mysqli_error($koneksi);
         header('Location: ../../pages/guru/tambah.php');
     }
 } else {

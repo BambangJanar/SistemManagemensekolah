@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../../config/database.php');
+$koneksi = $conn; // Alias for consistency
 
 // Check if user is admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -13,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $id = intval($_POST['id']);
 
     // Get current data
-    $current = mysqli_query($conn, "SELECT * FROM USERS WHERE ID = $id AND ROLE = 'guru'");
+    $current = mysqli_query($koneksi, "SELECT * FROM USERS WHERE ID = $id AND ROLE = 'guru'");
     if (mysqli_num_rows($current) === 0) {
         $_SESSION['error'] = 'Data guru tidak ditemukan';
         header('Location: ../../pages/guru/index.php');
@@ -22,22 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $currentData = mysqli_fetch_assoc($current);
 
     // Sanitize input
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $nama_lengkap = mysqli_real_escape_string($conn, $_POST['nama_lengkap']);
-    $jenis_kelamin = mysqli_real_escape_string($conn, $_POST['jenis_kelamin']);
-    $nip = !empty($_POST['nip']) ? mysqli_real_escape_string($conn, $_POST['nip']) : null;
-    $tempat_lahir = !empty($_POST['tempat_lahir']) ? mysqli_real_escape_string($conn, $_POST['tempat_lahir']) : null;
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $nama_lengkap = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
+    $jenis_kelamin = mysqli_real_escape_string($koneksi, $_POST['jenis_kelamin']);
+    $nip = !empty($_POST['nip']) ? mysqli_real_escape_string($koneksi, $_POST['nip']) : null;
+    $tempat_lahir = !empty($_POST['tempat_lahir']) ? mysqli_real_escape_string($koneksi, $_POST['tempat_lahir']) : null;
     $tanggal_lahir = !empty($_POST['tanggal_lahir']) ? $_POST['tanggal_lahir'] : null;
-    $alamat = !empty($_POST['alamat']) ? mysqli_real_escape_string($conn, $_POST['alamat']) : null;
-    $no_telepon = !empty($_POST['no_telepon']) ? mysqli_real_escape_string($conn, $_POST['no_telepon']) : null;
-    $email = !empty($_POST['email']) ? mysqli_real_escape_string($conn, $_POST['email']) : null;
-    $jabatan = !empty($_POST['jabatan']) ? mysqli_real_escape_string($conn, $_POST['jabatan']) : null;
-    $bidang_studi = !empty($_POST['bidang_studi']) ? mysqli_real_escape_string($conn, $_POST['bidang_studi']) : null;
-    $status = !empty($_POST['status']) ? mysqli_real_escape_string($conn, $_POST['status']) : 'aktif';
+    $alamat = !empty($_POST['alamat']) ? mysqli_real_escape_string($koneksi, $_POST['alamat']) : null;
+    $no_telepon = !empty($_POST['no_telepon']) ? mysqli_real_escape_string($koneksi, $_POST['no_telepon']) : null;
+    $email = !empty($_POST['email']) ? mysqli_real_escape_string($koneksi, $_POST['email']) : null;
+    $jabatan = !empty($_POST['jabatan']) ? mysqli_real_escape_string($koneksi, $_POST['jabatan']) : null;
+    $bidang_studi = !empty($_POST['bidang_studi']) ? mysqli_real_escape_string($koneksi, $_POST['bidang_studi']) : null;
+    $status = !empty($_POST['status']) ? mysqli_real_escape_string($koneksi, $_POST['status']) : 'aktif';
 
     // Check if username is changed and already exists
     if ($username !== $currentData['USERNAME']) {
-        $check_username = mysqli_query($conn, "SELECT ID FROM USERS WHERE USERNAME = '$username' AND ID != $id");
+        $check_username = mysqli_query($koneksi, "SELECT ID FROM USERS WHERE USERNAME = '$username' AND ID != $id");
         if (mysqli_num_rows($check_username) > 0) {
             $_SESSION['error'] = 'Username sudah digunakan';
             header("Location: ../../pages/guru/edit.php?id=$id");
@@ -47,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
 
     // Check if NIP is changed and already exists
     if ($nip && $nip !== $currentData['NIP']) {
-        $check_nip = mysqli_query($conn, "SELECT ID FROM USERS WHERE NIP = '$nip' AND ID != $id");
+        $check_nip = mysqli_query($koneksi, "SELECT ID FROM USERS WHERE NIP = '$nip' AND ID != $id");
         if (mysqli_num_rows($check_nip) > 0) {
             $_SESSION['error'] = 'NIP sudah digunakan';
             header("Location: ../../pages/guru/edit.php?id=$id");
@@ -106,10 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
         UPDATED_AT = CURRENT_TIMESTAMP
         WHERE ID = $id AND ROLE = 'guru'";
 
-    if (mysqli_query($conn, $query)) {
+    if (mysqli_query($koneksi, $query)) {
         $_SESSION['success'] = 'Data guru berhasil diperbarui';
     } else {
-        $_SESSION['error'] = 'Gagal memperbarui data guru: ' . mysqli_error($conn);
+        $_SESSION['error'] = 'Gagal memperbarui data guru: ' . mysqli_error($koneksi);
     }
 } else {
     $_SESSION['error'] = 'Permintaan tidak valid';
