@@ -25,7 +25,7 @@ if (empty($username) || empty($password)) {
 
 try {
     // REVISI: Menggunakan variabel $koneksi (sesuai config/database.php)
-    $stmt = $koneksi->prepare("SELECT id, username, password, nama_lengkap, role, status FROM users WHERE username = ? LIMIT 1");
+    $stmt = $koneksi->prepare("SELECT * FROM USERS WHERE USERNAME = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -53,7 +53,7 @@ try {
 
             // Update last login
             // REVISI: Menggunakan variabel $koneksi
-            $updateStmt = $koneksi->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
+            $updateStmt = $koneksi->prepare("UPDATE USERS SET LAST_LOGIN = NOW() WHERE ID = ?");
             $updateStmt->bind_param("i", $user['id']);
             $updateStmt->execute();
 

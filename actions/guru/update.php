@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('../../config/database.php');
-$koneksi = $conn; // Alias for consistency
 
 // Check if user is admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {

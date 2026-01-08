@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('../../config/database.php');
-$koneksi = $conn; // Alias for consistency
 
 // Check if user is admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -24,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = !empty($_POST['email']) ? mysqli_real_escape_string($koneksi, $_POST['email']) : null;
     $jabatan = !empty($_POST['jabatan']) ? mysqli_real_escape_string($koneksi, $_POST['jabatan']) : null;
     $bidang_studi = !empty($_POST['bidang_studi']) ? mysqli_real_escape_string($koneksi, $_POST['bidang_studi']) : null;
-    $status = !empty($_POST['status']) ? mysqli_real_escape_string($conn, $_POST['status']) : 'aktif';
+    $status = !empty($_POST['status']) ? mysqli_real_escape_string($koneksi, $_POST['status']) : 'aktif';
 
     // Check if username already exists
     $check_username = mysqli_query($koneksi, "SELECT ID FROM USERS WHERE USERNAME = '$username'");
