@@ -12,7 +12,8 @@ require_once('../../config/database.php');
 
 // Get all teachers
 $query = "SELECT * FROM USERS WHERE ROLE = 'guru' ORDER BY NAMA_LENGKAP ASC";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($koneksi
+n, $query);
 $guru = [];
 if ($result) {
     $guru = mysqli_fetch_all($result, MYSQLI_ASSOC);
