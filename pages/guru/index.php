@@ -175,7 +175,7 @@ if ($result) {
     <script>
         function confirmDelete(id) {
             const deleteBtn = document.getElementById('confirmDeleteBtn');
-            deleteBtn.href = `actions/guru/delete.php?id=${id}`;
+            deleteBtn.href = `../../actions/guru/delete.php?id=${id}`;
             const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             deleteModal.show();
         }
