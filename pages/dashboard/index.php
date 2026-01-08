@@ -47,10 +47,10 @@ if ($query_kelas) {
     <title>Dashboard - Sekolah App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-
     <style>
         body {
             background-color: #f5f6fa;
+            min-height: 100vh;
         }
 
         .sidebar {
@@ -87,42 +87,21 @@ if ($query_kelas) {
         .card-custom:hover {
             transform: translateY(-5px);
         }
+
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+        }
     </style>
 </head>
 
 <body>
+    <?php include('../../includes/header.php'); ?>
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3 col-lg-2 sidebar p-0 d-none d-md-block">
-                <div class="p-3 text-center border-bottom border-secondary">
-                    <h4 class="m-0">Sekolah App</h4>
-                    <small>Sistem Manajemen</small>
-                </div>
+            <?php include('../../includes/sidebar.php'); ?>
 
-                <div class="mt-3">
-                    <a href="#" class="active"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
-
-                    <?php if ($_SESSION['role'] == 'admin'): ?>
-                        <!-- Data Siswa (akan diaktifkan nanti) -->
-                        <!-- <a href="../siswa/index.php"><i class="bi bi-people me-2"></i> Data Siswa</a> -->
-                        <a href="../guru/index.php"><i class="bi bi-person-badge me-2"></i> Data Guru</a>
-                        <a href="#"><i class="bi bi-book me-2"></i> Mata Pelajaran</a>
-                        <a href="#"><i class="bi bi-calendar-week me-2"></i> Jadwal</a>
-                    <?php else: ?>
-                        <a href="#"><i class="bi bi-journal-check me-2"></i> Absensi Saya</a>
-                        <a href="#"><i class="bi bi-graph-up me-2"></i> Nilai Siswa</a>
-                    <?php endif; ?>
-
-                    <a href="#"><i class="bi bi-gear me-2"></i> Pengaturan</a>
-
-                    <a href="../../actions/auth/logout.php" class="text-danger mt-5 border-top border-secondary">
-                        <i class="bi bi-box-arrow-left me-2"></i> Logout
-                    </a>
-                </div>
-            </div>
-
-            <div class="col-md-9 col-lg-10 ms-sm-auto px-md-4 py-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-4 border-bottom">
                     <h1 class="h2">Dashboard</h1>
@@ -166,11 +145,18 @@ if ($query_kelas) {
                     </div>
                 </div>
 
-            </div>
+            </main>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Enable Bootstrap tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
 </body>
 
 </html>
