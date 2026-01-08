@@ -94,47 +94,35 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                                     <div class="row g-3">
                                         <div class="col-md-6">
                                             <label for="nama_lengkap" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required>
+                                            <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" required value="<?= isset($_POST['nama_lengkap']) ? htmlspecialchars($_POST['nama_lengkap']) : ''; ?>">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="nip" class="form-label">NIP</label>
-                                            <input type="text" class="form-control" id="nip" name="nip">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
-                                                <option value="L">Laki-laki</option>
-                                                <option value="P">Perempuan</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-                                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                                            <select class="form-select" id="status" name="status" required>
-                                                <option value="aktif" selected>Aktif</option>
-                                                <option value="nonaktif">Nonaktif</option>
-                                                <option value="pensiun">Pensiun</option>
-                                                <option value="pindah">Pindah</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <h5 class="mt-4 mb-3">Informasi Akun</h5>
-                                    <div class="row g-3">
                                         <div class="col-md-6">
                                             <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="username" name="username" required>
+                                            <input type="text" class="form-control" id="username" name="username" required value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
                                             <input type="password" class="form-control" id="password" name="password" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="nip" class="form-label">NIP</label>
+                                            <input type="text" class="form-control" id="nip" name="nip" value="<?= isset($_POST['nip']) ? htmlspecialchars($_POST['nip']) : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                                <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                                                <option value="L" <?= (isset($_POST['jenis_kelamin']) && $_POST['jenis_kelamin'] === 'L') ? 'selected' : ''; ?>>Laki-laki</option>
+                                                <option value="P" <?= (isset($_POST['jenis_kelamin']) && $_POST['jenis_kelamin'] === 'P') ? 'selected' : ''; ?>>Perempuan</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                            <input type="text" class="form-control" id="tempat_lahir" name="tempat_lahir" value="<?= isset($_POST['tempat_lahir']) ? htmlspecialchars($_POST['tempat_lahir']) : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
+                                            <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="<?= isset($_POST['tanggal_lahir']) ? htmlspecialchars($_POST['tanggal_lahir']) : ''; ?>">
                                         </div>
                                     </div>
 
@@ -146,23 +134,32 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
                                         </div>
                                         <div class="col-md-6">
                                             <label for="no_telepon" class="form-label">No. Telepon</label>
-                                            <input type="tel" class="form-control" id="no_telepon" name="no_telepon">
+                                            <input type="tel" class="form-control" id="no_telepon" name="no_telepon" value="<?= isset($_POST['no_telepon']) ? htmlspecialchars($_POST['no_telepon']) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email">
+                                            <input type="email" class="form-control" id="email" name="email" value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
                                         </div>
                                     </div>
 
                                     <h5 class="mt-4 mb-3">Informasi Jabatan</h5>
                                     <div class="row g-3">
                                         <div class="col-md-6">
+                                            <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                                            <select class="form-select" id="status" name="status" required>
+                                                <option value="aktif" <?= (isset($_POST['status']) && $_POST['status'] === 'aktif') ? 'selected' : 'selected'; ?>>Aktif</option>
+                                                <option value="nonaktif" <?= (isset($_POST['status']) && $_POST['status'] === 'nonaktif') ? 'selected' : ''; ?>>Nonaktif</option>
+                                                <option value="pensiun" <?= (isset($_POST['status']) && $_POST['status'] === 'pensiun') ? 'selected' : ''; ?>>Pensiun</option>
+                                                <option value="pindah" <?= (isset($_POST['status']) && $_POST['status'] === 'pindah') ? 'selected' : ''; ?>>Pindah</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label for="jabatan" class="form-label">Jabatan</label>
-                                            <input type="text" class="form-control" id="jabatan" name="jabatan">
+                                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="<?= isset($_POST['jabatan']) ? htmlspecialchars($_POST['jabatan']) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="bidang_studi" class="form-label">Bidang Studi</label>
-                                            <input type="text" class="form-control" id="bidang_studi" name="bidang_studi">
+                                            <input type="text" class="form-control" id="bidang_studi" name="bidang_studi" value="<?= isset($_POST['bidang_studi']) ? htmlspecialchars($_POST['bidang_studi']) : ''; ?>">
                                         </div>
                                     </div>
 
@@ -186,6 +183,67 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+
+            form.addEventListener('submit', function(e) {
+                let valid = true;
+
+                // Validate required fields
+                const requiredFields = form.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        valid = false;
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                // Validate email format if provided
+                const emailField = document.getElementById('email');
+                if (emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+                    valid = false;
+                    emailField.classList.add('is-invalid');
+                    const feedback = emailField.nextElementSibling || document.createElement('div');
+                    if (!emailField.nextElementSibling) {
+                        feedback.className = 'invalid-feedback';
+                        feedback.textContent = 'Format email tidak valid';
+                        emailField.parentNode.insertBefore(feedback, emailField.nextSibling);
+                    }
+                } else if (emailField.nextElementSibling?.classList.contains('invalid-feedback')) {
+                    emailField.classList.remove('is-invalid');
+                    emailField.nextElementSibling.remove();
+                }
+
+                if (!valid) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    // Scroll to first invalid field
+                    const firstInvalid = form.querySelector('.is-invalid');
+                    if (firstInvalid) {
+                        firstInvalid.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center'
+                        });
+                    }
+                }
+            });
+
+            // Remove invalid class when user starts typing
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.checkValidity()) {
+                        this.classList.remove('is-invalid');
+                    }
+                });
+            });
+        });
+
+        // Image preview
         function previewImage(input) {
             const preview = document.getElementById('imagePreview');
             const placeholder = document.getElementById('imagePlaceholder');

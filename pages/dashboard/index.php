@@ -104,8 +104,9 @@ if ($query_kelas) {
                     <a href="#" class="active"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
 
                     <?php if ($_SESSION['role'] == 'admin'): ?>
-                        <a href="#"><i class="bi bi-people me-2"></i> Data Siswa</a>
-                        <a href="#"><i class="bi bi-person-badge me-2"></i> Data Guru</a>
+                        <!-- Data Siswa (akan diaktifkan nanti) -->
+                        <!-- <a href="../siswa/index.php"><i class="bi bi-people me-2"></i> Data Siswa</a> -->
+                        <a href="../guru/index.php"><i class="bi bi-person-badge me-2"></i> Data Guru</a>
                         <a href="#"><i class="bi bi-book me-2"></i> Mata Pelajaran</a>
                         <a href="#"><i class="bi bi-calendar-week me-2"></i> Jadwal</a>
                     <?php else: ?>

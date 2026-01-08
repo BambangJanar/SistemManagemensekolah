@@ -34,18 +34,18 @@ try {
         $user = $result->fetch_assoc();
 
         // Verify password
-        if (password_verify($password, $user['password'])) {
+        if (password_verify($password, $user['PASSWORD'])) {
             // Check if account is active
-            if ($user['status'] !== 'aktif') {
+            if ($user['STATUS'] !== 'aktif') {
                 header('Location: ../../pages/auth/login.php?error=inactive');
                 exit();
             }
 
             // Set session variables
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['nama_lengkap'] = $user['nama_lengkap'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['user_id'] = $user['ID'];
+            $_SESSION['username'] = $user['USERNAME'];
+            $_SESSION['nama_lengkap'] = $user['NAMA_LENGKAP'];
+            $_SESSION['role'] = $user['ROLE'];
             $_SESSION['logged_in'] = true;
 
             // Regenerate session ID for security
@@ -54,7 +54,7 @@ try {
             // Update last login
             // REVISI: Menggunakan variabel $koneksi
             $updateStmt = $koneksi->prepare("UPDATE USERS SET LAST_LOGIN = NOW() WHERE ID = ?");
-            $updateStmt->bind_param("i", $user['id']);
+            $updateStmt->bind_param("i", $user['ID']);
             $updateStmt->execute();
 
             // Redirect based on role

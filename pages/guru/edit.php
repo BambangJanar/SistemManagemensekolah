@@ -21,7 +21,7 @@ $id = intval($_GET['id']);
 
 // Get teacher data
 $query = "SELECT * FROM USERS WHERE ID = $id AND ROLE = 'guru'";
-$result = mysqli_query($conn, $query);
+$result = mysqli_query($koneksi, $query);
 
 if (mysqli_num_rows($result) === 0) {
     $_SESSION['error'] = 'Data guru tidak ditemukan';
